@@ -14,6 +14,7 @@ export default function Dashboard() {
   const [loading, setLoading]         = useState(true);
   const [notionConnected, setNotion]  = useState(false);
   const [slackConnected, setSlack]    = useState(false);
+  const [slackRefreshKey, setSlackRefreshKey] = useState(0);
   const router  = useRouter();
   const supabase = createClient();
 
@@ -65,12 +66,12 @@ export default function Dashboard() {
           <span className="text-sm font-semibold text-gray-200">AI Helper</span>
         </div>
         <div className="flex items-center gap-4">
-          <button
+          {/* <button
             onClick={debugNotion}
             className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
           >
             Debug
-          </button>
+          </button> */}
           <a
             href="/settings"
             className="text-xs text-gray-500 hover:text-gray-300 transition-colors"
@@ -96,12 +97,12 @@ export default function Dashboard() {
 
         {/* Center: Chat */}
         <div className="flex-1 flex flex-col p-4 min-h-0">
-          <ChatPanel />
+          <ChatPanel onSlackPost={() => setSlackRefreshKey((k) => k + 1)} />
         </div>
 
         {/* Right: Slack History */}
         <div className="w-[28%] flex flex-col p-4 min-h-0">
-          <SlackHistory connected={slackConnected} />
+          <SlackHistory connected={slackConnected} refreshKey={slackRefreshKey} />
         </div>
       </main>
     </div>

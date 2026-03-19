@@ -58,7 +58,6 @@ export interface IntegrationStatus {
   notion: boolean;
   slack: boolean;
   notion_database_id: string;
-  notion_api_key_set: boolean;
 }
 
 export const api = {

@@ -8,7 +8,9 @@ interface Message {
   content: string;
 }
 
-export default function ChatPanel() {
+const SLACK_SUCCESS_PATTERNS = ["전송 완료", "슬랙", "slack", "발송"];
+
+export default function ChatPanel({ onSlackPost }: { onSlackPost?: () => void }) {
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput]       = useState("");
   const [loading, setLoading]   = useState(false);
@@ -31,6 +33,10 @@ export default function ChatPanel() {
     try {
       const data = await api.runAgent(text);
       setMessages((prev) => [...prev, { role: "assistant", content: data.response }]);
+      const lower = data.response.toLowerCase();
+      if (onSlackPost && SLACK_SUCCESS_PATTERNS.some((p) => lower.includes(p))) {
+        onSlackPost();
+      }
     } catch (e) {
       if ((e as Error).message.includes("API error 401")) {
         setNeedsConnect(true);
@@ -61,9 +67,35 @@ export default function ChatPanel() {
       {/* Messages */}
       <div className="flex-1 overflow-y-auto space-y-3 pr-1">
         {messages.length === 0 && (
-          <p className="text-xs text-gray-600 text-center py-8">
-            오늘 할 일 정리해줘, Notion에서 진행 중인 작업 보여줘...
-          </p>
+          <div className="flex flex-col gap-3 py-4">
+            <div className="flex items-center justify-center gap-1.5 mb-1">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" className="text-gray-500">
+                <rect x="3" y="11" width="18" height="10" rx="2"/>
+                <path d="M12 11V7"/>
+                <circle cx="12" cy="5" r="2"/>
+                <path d="M8 15h.01M12 15h.01M16 15h.01"/>
+                <path d="M3 16H1M23 16h-2"/>
+              </svg>
+              <p className="text-xs text-gray-500">빠르게 시작하기</p>
+            </div>
+            <div className="grid grid-cols-2 gap-2">
+              {[
+                { icon: "📋", label: "오늘 할 일 정리", prompt: "오늘 할 일 정리해줘" },
+                { icon: "🔄", label: "진행 중인 작업", prompt: "Notion에서 진행 중인 작업 보여줘" },
+                { icon: "✅", label: "완료된 작업", prompt: "완료된 작업 목록 보여줘" },
+                { icon: "📢", label: "Slack에 보고", prompt: "현재 진행 중인 작업을 Slack에 보고해줘" },
+              ].map(({ icon, label, prompt }) => (
+                <button
+                  key={label}
+                  onClick={() => { setInput(prompt); }}
+                  className="flex items-center gap-2 bg-gray-800/60 hover:bg-gray-700/80 border border-gray-700/60 hover:border-gray-600 rounded-xl px-3 py-2.5 text-left transition-all group"
+                >
+                  <span className="text-base">{icon}</span>
+                  <span className="text-xs text-gray-400 group-hover:text-gray-200 transition-colors leading-tight">{label}</span>
+                </button>
+              ))}
+            </div>
+          </div>
         )}
         {messages.map((msg, i) => (
           <div

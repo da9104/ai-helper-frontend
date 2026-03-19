@@ -25,7 +25,7 @@ function formatDate(iso: string) {
   }
 }
 
-export default function SlackHistory({ connected }: { connected: boolean }) {
+export default function SlackHistory({ connected, refreshKey }: { connected: boolean; refreshKey?: number }) {
   const [posts, setPosts]   = useState<SlackPost[]>([]);
   const [loading, setLoading] = useState(false);
   const [error, setError]   = useState<string | null>(null);
@@ -43,7 +43,7 @@ export default function SlackHistory({ connected }: { connected: boolean }) {
     }
   }, []);
 
-  useEffect(() => { if (connected) load(); }, [connected, load]);
+  useEffect(() => { if (connected) load(); }, [connected, load, refreshKey]);
 
   return (
     <div className="flex flex-col h-full">
