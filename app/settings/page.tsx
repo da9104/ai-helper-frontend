@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { createClient } from "@/lib/supabase";
 import { api, type IntegrationStatus } from "@/lib/api";
@@ -20,7 +20,7 @@ function StatusBadge({ connected }: { connected: boolean }) {
   );
 }
 
-export default function SettingsPage() {
+function SettingsContent() {
   const [status, setStatus]       = useState<IntegrationStatus | null>(null);
   const [loading, setLoading]     = useState(true);
   const [dbId, setDbId]           = useState("");
@@ -162,5 +162,13 @@ export default function SettingsPage() {
         </div>
       )}
     </div>
+  );
+}
+
+export default function SettingsPage() {
+  return (
+    <Suspense>
+      <SettingsContent />
+    </Suspense>
   );
 }
