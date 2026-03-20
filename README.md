@@ -1,6 +1,11 @@
 # AI Helper — Documentation
 
 > Last updated: 2026-03-19
+>
+
+## Screenshot
+<img width="1497" height="802" alt="image" src="https://github.com/user-attachments/assets/2dffd0ed-1de3-4a96-9118-3f90856f3824" />
+
 
 ## Contents
 
