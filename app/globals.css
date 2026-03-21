@@ -1,10 +1,17 @@
+@import url('https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&family=Instrument+Serif:ital@0;1&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+
 :root {
   --foreground-rgb: 17, 24, 39;
   --background-rgb: 255, 255, 255;
+  --font-mono: var(--font-jetbrains, 'JetBrains Mono', 'Fira Code', monospace);
+  --font-serif: var(--font-ibm-serif, 'IBM Plex Serif', Georgia, serif);
+  --font-instrument: 'Instrument Serif', serif;
+  --font-sans: 'Google Sans', sans-serif;
 }
 
 .dark {
@@ -17,6 +24,17 @@ body {
   background: rgb(var(--background-rgb));
 }
 
+/* ─── Hero zoom animation ────────────────────────────────────────────────── */
+@keyframes heroZoom {
+  from { transform: scale(1); }
+  to   { transform: scale(1.09); }
+}
+
+.hero-zoom {
+  animation: heroZoom 14s ease-out forwards;
+  transform-origin: center center;
+}
+
 /* Scrollbars */
 ::-webkit-scrollbar { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
@@ -24,3 +42,5 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: #9ca3af; }
 .dark ::-webkit-scrollbar-thumb { background: #374151; }
 .dark ::-webkit-scrollbar-thumb:hover { background: #4b5563; }
+
+
