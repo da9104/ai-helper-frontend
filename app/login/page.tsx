@@ -26,18 +26,18 @@ export default function LoginPage() {
 
   return (
     <div className="flex items-center justify-center min-h-screen">
-      <div className="bg-gray-900 border border-gray-800 rounded-2xl p-10 w-full max-w-sm text-center">
-        <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-6">
+      <div className="dark:bg-gray-900 bg-gray-100 border dark:border-gray-800 border-gray-200 rounded-2xl p-10 w-full max-w-sm text-center">
+        <div className="w-12 h-12 bg-blue-600 dark:text-gray-800 text-white rounded-xl flex items-center justify-center text-lg font-bold mx-auto mb-6">
           AI
         </div>
-        <h1 className="text-xl font-semibold text-gray-100 mb-2">AI Helper</h1>
+        <h1 className="text-xl font-semibold dark:text-gray-100 text-gray-800 mb-2">AI Helper</h1>
         <p className="text-sm text-gray-500 mb-8">
           Notion + Slack 자동화 대시보드
         </p>
 
         <button
           onClick={signInWithGoogle}
-          className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-100 text-gray-900 font-medium rounded-xl px-4 py-3 text-sm transition-colors"
+          className="w-full flex items-center justify-center gap-3 bg-white hover:bg-gray-200 dark:hover:bg-gray-700 text-gray-900 dark:text-gray-200 font-medium rounded-xl px-4 py-3 text-sm transition-colors"
         >
           <svg width="18" height="18" viewBox="0 0 18 18" fill="none">
             <path d="M17.64 9.2c0-.637-.057-1.251-.164-1.84H9v3.481h4.844c-.209 1.125-.843 2.078-1.796 2.717v2.258h2.908c1.702-1.567 2.684-3.874 2.684-6.615z" fill="#4285F4"/>
